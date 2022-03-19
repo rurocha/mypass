@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "mypass",
+    "slug": "mypass",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
