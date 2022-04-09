@@ -1,21 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { ThemeProvider } from 'styled-components/native'
+import {GestureHandlerRootView} from 'react-native-gesture-handler'
+import AppLoading from 'expo-app-loading'
+import * as LocalAuthentication from 'expo-local-authentication'
+import { useFonts, Roboto_700Bold, Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto'
+
+import theme from './src/global/styles/theme'
+import AppRoutes from './src/routes';
+import AuthenticationFailed from './src/screens/AuthenticationFailed/Index';
 
 export default function App() {
+// const {navigate} = useNavigation()
+
+const [isAuthenticated, setIsAuthenticated] = useState(null)
+
+  // useEffect(() => {
+  //   async function loadAuth() {
+  //   LocalAuthentication.authenticateAsync({
+  //     promptMessage: 'Autenticação'
+  //   })
+  //   .then((res) => {
+  //     setIsAuthenticated(res.success)
+  //     // navigate('home')
+  //   })
+  //   .catch((err) => {
+  //     // Alert('nao autenticado')
+  //     // navigate('auth-failed')
+  //   })
+  // }
+  //  loadAuth()
+  // }, [])
+
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{flex: 1}}>   
+      <ThemeProvider theme={theme}>
+        <AppRoutes />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

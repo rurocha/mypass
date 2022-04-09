@@ -1,0 +1,1 @@
+export const PASS_DATA_STORAGE_KEY = "@mypass/passData"
