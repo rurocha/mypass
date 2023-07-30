@@ -2,16 +2,7 @@ import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import { Modalize } from 'react-native-modalize'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Alert } from 'react-native'
-import {
-  Container,
-  Header,
-  TagsContainer,
-  InputContainer,
-  AddPassButton,
-  AddPassButtonIcon,
-  PasswordList,
-  PasswordCardContainer,
-} from './styles'
+import * as S from './styles'
 import Logo from '../../assets/icons/logo.svg'
 import Input from '../../components/Form/Input'
 import TagsList from '../../components/TagsList'
@@ -22,6 +13,7 @@ import PasswordCard from '../../components/PasswordCard'
 import { getAsyncStorageItem } from '../../services/storage'
 import { PASS_DATA_STORAGE_KEY } from '../../helpers/keys.helpers'
 import PasswordDetailsModal from '../../components/PasswordDetailsModal'
+
 interface IProps {
   navigation: NavigationProp<ParamListBase>
 }
@@ -49,9 +41,12 @@ export default function Home({ navigation }: IProps) {
   }
  
   const memoFilteredPasswordData = useMemo(() => {
-    return passwordData
-      .filter((item) => item.name.includes(textInputed.toLowerCase()))
-      // .filter((item) => item.currentTags.some(({key}) => keysSelectedTags.includes(key)))
+    const checkedSelectedTags = selectedTags.filter(({ isChecked }) => isChecked)
+    const filtered = passwordData
+      .filter((item) => item.name.toLowerCase()?.includes(textInputed.toLowerCase()))
+      .filter((item) => item.currentTags.some(({ key }) => checkedSelectedTags.some((selected) => selected.key === key)))
+
+    return checkedSelectedTags.length ? filtered : passwordData
       
   }, [textInputed, passwordData, selectedTags])
   
@@ -71,14 +66,15 @@ export default function Home({ navigation }: IProps) {
 
   useEffect(() => {
     getStorageData()
+    console.log(memoFilteredPasswordData )
   }, [])
 
   return (
-    <Container>
-      <Header>
+    <S.Container>
+      <S.Header>
         <Logo height="64"/>
-      </Header>
-      <InputContainer>        
+      </S.Header>
+      <S.InputContainer>        
         <Input 
           iconName="search"
           positionIcon="right"
@@ -86,19 +82,19 @@ export default function Home({ navigation }: IProps) {
           onChangeText={setTextInputed} 
           placeholder="Search"
         />
-      </InputContainer>
-      <TagsContainer>
+      </S.InputContainer>
+      <S.TagsContainer>
         <TagsList
           onPress={setSelectedTags}
           tags={tags}
         />
-      </TagsContainer>
+      </S.TagsContainer>
 
-      <PasswordList
+      <S.PasswordList
         keyExtractor={(item) => item.id}
         data={memoFilteredPasswordData}
         renderItem={({item}) => (
-          <PasswordCardContainer>
+          <S.PasswordCardContainer>
             <PasswordCard 
               name={item.name}
               user={item.user}
@@ -106,19 +102,19 @@ export default function Home({ navigation }: IProps) {
               website={item.website}
               onPress={() => onOpenModalDetails(item)}
             />
-          </PasswordCardContainer>
+          </S.PasswordCardContainer>
         )}
         >
-      </PasswordList>
-      <AddPassButton
+      </S.PasswordList>
+      <S.AddPassButton
         onPress={() => navigation.navigate('register')}
       >
-        <AddPassButtonIcon name="plus" />
-      </AddPassButton>
+        <S.AddPassButtonIcon name="plus" />
+      </S.AddPassButton>
       <PasswordDetailsModal
         data={passwordDataItem}
         modalDetailsRef={modalDetailsRef}
       />
-    </Container>
+    </S.Container>
   )
 }

@@ -16,7 +16,7 @@ export default function PasswordDetailsModal({ modalDetailsRef, data }: IProps) 
     ref={modalDetailsRef}
     modalHeight={600}
   >
-    <Text>...your content</Text>
+    <Text>TODO: Style this modal</Text>
     <Text>{data.name}</Text>
   </Modalize>
   )
