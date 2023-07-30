@@ -66,7 +66,6 @@ export default function Home({ navigation }: IProps) {
 
   useEffect(() => {
     getStorageData()
-    console.log(memoFilteredPasswordData )
   }, [])
 
   return (

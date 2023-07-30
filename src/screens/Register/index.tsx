@@ -39,7 +39,6 @@ export default function Register({ navigation }: IProps) {
   const { control, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(formSchema) })
 
   async function onSubmit(values: object) {
-    console.log(values)
     const dataToSave = {
       id: uuid.v4(),
       ...values,
