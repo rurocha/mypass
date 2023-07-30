@@ -7,6 +7,7 @@ interface IStyles {
 
 export const Container = styled.View`
   flex-direction: row;
+  flex-wrap: wrap;
 `
 export const Tag = styled(TouchableOpacity)`
 `

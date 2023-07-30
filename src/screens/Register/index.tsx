@@ -74,7 +74,7 @@ export default function Register({ navigation }: IProps) {
   return (
     <Container>
       <Header>
-        <Title>Cadastrar uma nova senha</Title>
+        <Title>Cadastrar</Title>
       </Header>
       <Form>
         <InputContainer>

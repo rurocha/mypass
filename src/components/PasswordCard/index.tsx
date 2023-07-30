@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import * as Clipboard from 'expo-clipboard';
+import { TouchableOpacityProps } from 'react-native'
 import {
   Container,
   Content,
@@ -18,11 +19,12 @@ import {
   TextsContainer,
 } from './styles'
 
-interface IProps {
+interface IProps extends TouchableOpacityProps {
   name: string;
   user: string;
   password: string;
   website: string;
+  onPress: () => void
 }
 
 export default function PasswordCard ({
@@ -30,11 +32,14 @@ export default function PasswordCard ({
   user,
   password,
   website,
+  onPress,
 }: IProps) {
  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   return (
-    <Container>
+    <Container
+      onPress={onPress}
+    >
       <Content>
         <WebsiteIcon source={{uri: `https://icon.horse/icon/${website}`}} />
         <TextsContainer>

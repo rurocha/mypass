@@ -2,7 +2,9 @@ import styled from 'styled-components/native'
 import { RectButton, BorderlessButton } from 'react-native-gesture-handler'
 import {Feather} from '@expo/vector-icons'
 
-export const Container = styled.View`
+export const Container = styled(RectButton).attrs({
+  rippleColor: '#9B9A9A'
+})`
   flex-direction: row;
   background-color: ${props => props.theme.colors.gray_3};
   border-radius: 8px;
@@ -10,7 +12,7 @@ export const Container = styled.View`
   justify-content: space-between;
   align-items: center;
 `
-export const Content = styled(RectButton)`
+export const Content = styled.View`
   flex-direction: row;
   align-items: center;
 `
@@ -18,6 +20,7 @@ export const NameText = styled.Text`
   font-size: 20px;
   font-family: ${props => props.theme.fonts.bold};
   color: ${props => props.theme.colors.gray_1};
+  text-transform: capitalize;
 `
 export const UserText = styled.Text`
   color: ${props => props.theme.colors.gray_2};

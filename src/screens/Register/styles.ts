@@ -30,7 +30,8 @@ export const InputLabel = styled.Text`
   margin-bottom: 4px;
 `
 export const Footer = styled.View`
-  margin: 0 32px;
+  flex: 1;
+  justify-content: flex-end;
 `
 export const TagsContainer = styled.View`
   margin-bottom: 8px;
